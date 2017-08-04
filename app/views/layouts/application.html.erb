@@ -9,13 +9,12 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        ...
-      </div>
-    </nav>
+    <%= render 'layouts/header' %>
 
-    <%= yield %>
+    <div class="container theme-showcase" role="main">
+      <%= yield %>
+    </div>
 
+    <%= render 'layouts/footer' %>
   </body>
 </html>
