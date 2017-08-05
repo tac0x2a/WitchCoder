@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get '/users/:id', to:'users#show'
 
   resources :problems
-  get '/problems/new', to:'problems#new'
+  get  '/problems/', to:'problems#index'
+  get  '/problems/:id', to:'problems#show'
+  get  '/problems/new', to:'problems#new'
   post '/problems/create', to:'problems#create'
-  get '/problems/:id', to:'problems#show'
+
 end
