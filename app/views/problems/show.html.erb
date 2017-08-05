@@ -1,0 +1,17 @@
+<h2>#<%= @problem.id %> <%= @problem.title %></h2>
+
+by <%= @problem.user.email %><br/>
+<br/>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Problem</h3>
+  </div>
+  <div class="panel-body">
+    <%= @problem.description %>
+  </div>
+</div>
+
+<!-- Todo: Show ExampleTestCases -->
+
+Status: <%= @problem.publish_status %>
