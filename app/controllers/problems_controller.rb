@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
   def index
-    @problems = Problem.all
+    @problems = Problem.select{|p| p.publish_status == "published"}
   end
 
 
