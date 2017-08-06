@@ -1,0 +1,21 @@
+<h1>Attempt Problem#<%= @attempt.problem.id %> <%= @attempt.problem.title %></h1>
+Player: <%= @attempt.user.name %>
+Status: <%= @attempt.result %>
+AttemptedAt: <%= @attempt.attempted_at %>
+AttemptedCount: <%= @attempted_count %>
+AttemptID: <%= @attempt.id %>
+
+<!-- Problem -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Problem</h3>
+  </div>
+  <div class="panel-body">
+    <%= markdown(@problem.description).html_safe %>
+  </div>
+</div>
+
+by <%= link_to @problem.user.name, @problem.user %>.
+
+This problem has <%= @problem.cases.count %> test cases.
+<br/>

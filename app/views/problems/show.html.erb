@@ -1,7 +1,5 @@
 <h2>#<%= @problem.id %> <%= @problem.title %></h2>
 
-by <%= @problem.user.name %>(<%= @problem.user.email %>)<br/>
-<br/>
 
 <!-- Problem -->
 <div class="panel panel-default">
@@ -13,7 +11,15 @@ by <%= @problem.user.name %>(<%= @problem.user.email %>)<br/>
   </div>
 </div>
 
+by <%= link_to @problem.user.name, @problem.user %>
+
 This problem has <%= @problem.cases.count %> test cases.
+<br/>
+
+
+<%= link_to 'Challenge This Problem!',
+    {action:"new", controller:"attempts", problem: @problem},
+    class: "btn btn-xl btn-danger", role:"button", method: :post %>
 
 <!-- TestCases -->
 <% if current_user == @problem.user %>
