@@ -1,23 +1,28 @@
 <fieldset>
-  <%= link_to '#', class: "remove_fields btn btn-xs btn-danger", role:"button" do %>
-    <i class="glyphicon glyphicon-minus-sign"></i> Remove
-  <% end %>
+  <div class="panel panel-default">
+    <div class="panel-body">
 
-  <div class="input-group">
-    <span class="input-group-addon">Input</span>
-    <%= f.text_area :input, {autofocus: true, class: "form-control", rows: "1" } %>
-  </div><br />
+      <div class="case input-group">
+        <span class="case input-group-addon">Input</span>
+        <%= f.text_area :input, {autofocus: true, class: "form-control", rows: "1" } %>
+      </div>
 
-  <div class="input-group">
-    <span class="input-group-addon">Expected</span>
-    <%= f.text_area :expected, {autofocus: true, class: "form-control", rows: "1" } %>
-  </div>
+      <div class="case input-group">
+        <span class="case input-group-addon">Expected</span>
+        <%= f.text_area :expected, {autofocus: true, class: "form-control", rows: "1" } %>
+      </div>
 
-  <%= f.hidden_field :_destroy %>
+      <%= f.hidden_field :_destroy %>
 
 
-  <% if @problem.persisted? %>
-    <%= addresses_form.check_box :_destroy %>
-    <%= addresses_form.label :_destroy, "Remove" %><br />
-  <% end %>
-<fieldset>
+      <% if @problem.persisted? %>
+        <%= addresses_form.check_box :_destroy %>
+        <%= addresses_form.label :_destroy, "Remove" %><br />
+      <% end %>
+
+      <%= link_to '#', class: "remove_fields btn btn-xs btn-danger", role:"button" do %>
+        <i class="glyphicon glyphicon-minus-sign"></i> Remove
+      <% end %>
+    </div><!-- "panel-body" -->
+  </div><!-- "panel panel-default" -->
+</fieldset>
