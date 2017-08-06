@@ -5,6 +5,8 @@
     <th>#</th>
     <th>Title</th>
     <th>Question's</th>
+    <th>Attempted</th>
+    <th>Pass Rate</th>
     <th>Published Date</th>
   </tr>
   <% @problems.each do |p| %>
@@ -13,6 +15,8 @@
 
     <td><%= link_to p.title, {action:"show", controller:"problems", id: p.id} %></td>
     <td><%= link_to p.user.name, {action:"show", controller:"users", id: p.user.id} %></td>
+    <td><%= Attempt.count{|a| a.problem == p} %></td>
+    <td><%= "%.2f" % (Attempt.count{|a| a.problem == p && a.result == "PS"} / Attempt.count{|a| a.problem == p}.to_f * 100) %>%</td>
     <td><%= p.updated_at %></td>
   </tr>
 

@@ -8,7 +8,7 @@ Language: <%= AttemptsController::Languages[@attempt.language] %><br /><br />
 SubmittedCode:
 <div class="panel panel-default">
   <div class="panel-body">
-    <%= markdown(@attempt.code).html_safe %>
+    <%= markdown(@attempt.code || "").html_safe %>
   </div>
 </div>
 

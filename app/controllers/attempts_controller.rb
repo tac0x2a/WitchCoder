@@ -47,6 +47,7 @@ class AttemptsController < ApplicationController
 
   def update
     @attempt = Attempt.find(params[:id])
+    @attempt.submitted_at = DateTime.now
     @attempt.result = "JP"
 
     if not @attempt.update_attributes(attempt_params)
@@ -95,7 +96,6 @@ class AttemptsController < ApplicationController
     params.require(:attempt).permit(
       :language,
       :code
-      # :submitted_at
       )
   end
 end

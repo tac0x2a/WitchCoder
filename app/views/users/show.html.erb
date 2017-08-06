@@ -1,2 +1,41 @@
-<%= @user.name %>
-<%= @user.email %>
+<h1><%= @user.name %></h1>
+<h3><%= @user.email %></h3>
+
+
+<h3>Published <%= Problem.count{|p| p.user == @user} %> problems</h3>
+<h3>Attempted <%= Attempt.count{|p| p.user == @user} %> times</h3>
+<h3>Attempted <%= Attempt.select{|p| p.user == @user}.map{|p| p.problem.id}.uniq.count %> problems </h3>
+
+<% if @user == current_user %>
+
+  <%= link_to edit_user_registration_path, class: "remove_fields btn btn-xs btn-danger", role:"button" do %>
+    <i class="glyphicon glyphicon-minus-sign"></i> Edit Profile
+  <% end %>
+
+
+  <h2>Recent Attempt</h2>
+
+  <table class="table">
+    <tr>
+      <th>Problem</th>
+      <th>Result</th>
+      <th>Language</th>
+      <th>AnswerTime[sec]</th>
+      <th>CodeLength[byte]</th>
+      <th>Attempted</th>
+      <th>Submitted</th>
+    </tr>
+
+    <% Attempt.select{|a| a.user == @user}.reverse[0,10].each do |p| %>
+    <tr>
+      <td><%= link_to p.problem.title, {action:"show", controller:"attempts", id: p.id} %></td>
+      <td><%= AttemptsController::AttemptStatus[p.result] %></td>
+      <td><%= AttemptsController::Languages[p.language] %></td>
+      <td><%= p.answer_time %></td>
+      <td><%= p.code&.strip&.length  %></td>
+      <td><%= p.attempted_at %></td>
+      <td><%= p.submitted_at %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
