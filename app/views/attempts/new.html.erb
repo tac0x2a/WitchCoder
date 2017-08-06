@@ -1,4 +1,4 @@
-<h1>Attempt Problem#<%= @attempt.problem.id %> <%= @attempt.problem.title %></h1>
+<h1>Challenge Problem#<%= @attempt.problem.id %> <%= @attempt.problem.title %></h1>
 Player: <%= @attempt.user.name %>
 Status: <%= @attempt.result %>
 AttemptedAt: <%= @attempt.attempted_at %>
@@ -19,3 +19,28 @@ by <%= link_to @problem.user.name, @problem.user %>.
 
 This problem has <%= @problem.cases.count %> test cases.
 <br/>
+
+<!-- Attempt -->
+<h1>Attempt</h1>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= form_for(@attempt) do |f| %>
+
+    <div class="field">
+      <%= f.label :language %>
+      <%= f.select :language,
+          AttemptsController::Languages.invert.to_a,
+          {autofocus: true, class: "form-control"} %>
+    </div><br />
+
+    <div class="field">
+      <%= f.label :code %>
+      <%= f.text_area :code, {autofocus: true, class: "form-control", rows: "10" } %>
+    </div><br />
+
+    <div class="actions">
+      <%= f.submit "Submit!!", class:"btn btn-danger", role:"button" %>
+    </div>
+    <% end %><!-- form_for -->
+  </div><!-- "panel-body" -->
+</div><!-- "panel panel-default" -->

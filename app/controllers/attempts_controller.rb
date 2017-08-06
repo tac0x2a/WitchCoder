@@ -1,16 +1,18 @@
 class AttemptsController < ApplicationController
-  AttemptStatus = [
-    "NS" => "NotSubmitted",
-    "PS" => "Passed",
-    "TE" => "TimeExceeded",
-    "ME" => "MemoryExceeded",
-    "FA" => "Fail",
-    "ER" => "Error"
-  ]
+  AttemptStatus = {
+    "NS" => "NotSubmitted", # Open problem to Submit
+    "RT" => "Retired",      # After Open attempt, user retired.
+    "JP" => "JudgeProgress",# After Submit, Judging...
+    "PS" => "Passed",       # After Submit, All cases are passed.
+    "TE" => "TimeExceeded", # After Submit, there are time exceeded case.
+    "ME" => "MemoryExceeded", # After Submit, there are memory exceeded case.
+    "FA" => "Fail", # After Submit, there are failed case.
+    "ER" => "Error" # After Submit, submitted code has errors, in prepareing or running.
+  }
 
-  Languages = [
+  Languages = {
     "RB" => "Ruby"
-  ]
+  }
 
   def new
     @problem = Problem.find(params[:problem])
@@ -43,12 +45,57 @@ class AttemptsController < ApplicationController
     @attempted_count = attempts.count
   end
 
-  def create
+  def update
+    @attempt = Attempt.find(params[:id])
+    @attempt.result = "JP"
+
+    if not @attempt.update_attributes(attempt_params)
+      redirect_to
+        action:"show",
+        controller:"problems",
+        id: @attempt.problem.id,
+        notice:"Failed Challenge Problem by Internal Error."
+    end
+
+    # Todo: Judge here.
+    @attempt.problem.cases.each do |caze|
+      attempt_case = AttemptCase.new(attempt:@attempt, case:caze)
+      attempt_case.result = "PS"
+      attempt_case.exec_time = 42
+      attempt_case.exec_mem  = 4423
+      attempt_case.actual    = "2"
+      attempt_case.save
+    end
+
+    @attempt.result = "PS"    # Todo
+    @attempt.answer_time = 42 # Todo
+
+    if not @attempt.save
+      redirect_to
+        action:"show",
+        controller:"problems",
+        id: @attempt.problem.id,
+        notice:"Failed Challenge Problem by Internal Error."
+    end
+
+    redirect_to action:"show", id:@attempt.id
   end
 
   def index
   end
 
   def show
+    @attempt = Attempt.find(params[:id])
+    @problem = @attempt.problem
+    @player  = @attempt.user
+  end
+
+  private
+  def attempt_params
+    params.require(:attempt).permit(
+      :language,
+      :code
+      # :submitted_at
+      )
   end
 end

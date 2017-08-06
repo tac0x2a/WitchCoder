@@ -1,2 +1,35 @@
-<h1>Attempts#show</h1>
-<p>Find me in app/views/attempts/show.html.erb</p>
+<h1>Attempt Result Problem#<%= @problem.id%> <%= @problem.title%></h1>
+
+Player: <%= @player.name %><br />
+Attempted: <%= @attempt.attempted_at %><br />
+Submitted: <%= @attempt.submitted_at %><br />
+Status: <%= AttemptsController::AttemptStatus[@attempt.result] %><br />
+Language: <%= AttemptsController::Languages[@attempt.language] %><br /><br />
+SubmittedCode:
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= markdown(@attempt.code).html_safe %>
+  </div>
+</div>
+
+CaseResults:
+
+<table class="table">
+  <tr>
+    <th>Case#</th>
+    <th>Result</th>
+    <th>ExecutionTime[ms]</th>
+    <th>ExecutionMemory[KB]</th>
+    <th>CodeOutput</th>
+  </tr>
+
+  <% @attempt.attempt_cases.each_with_index do |c, idx| %>
+  <tr>
+    <td><%= idx+1 %></td>
+    <td><%= AttemptsController::AttemptStatus[c.result] %></td>
+    <td><%= c.exec_time %></td>
+    <td><%= c.exec_mem  %></td>
+    <td><%= c.actual %></td>
+  </tr>
+  <% end %>
+</table>
