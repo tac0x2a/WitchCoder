@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  attempt: one
+  case: one
+  exec_time: 1
+  exec_mem: 1
+  result: MyString
+
+two:
+  attempt: two
+  case: two
+  exec_time: 1
+  exec_mem: 1
+  result: MyString

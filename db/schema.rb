@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806071405) do
+ActiveRecord::Schema.define(version: 20170806090420) do
+
+  create_table "attempt_cases", force: :cascade do |t|
+    t.integer "attempt_id"
+    t.integer "case_id"
+    t.integer "exec_time"
+    t.integer "exec_mem"
+    t.string "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attempt_id"], name: "index_attempt_cases_on_attempt_id"
+    t.index ["case_id"], name: "index_attempt_cases_on_case_id"
+  end
+
+  create_table "attempts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "problem_id"
+    t.string "language"
+    t.text "code"
+    t.string "result"
+    t.integer "answer_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_attempts_on_problem_id"
+    t.index ["user_id"], name: "index_attempts_on_user_id"
+  end
 
   create_table "cases", force: :cascade do |t|
     t.integer "problem_id"
