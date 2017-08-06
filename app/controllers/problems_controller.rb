@@ -8,6 +8,7 @@ class ProblemsController < ApplicationController
   def new
     redirect_to new_user_session_path if not user_signed_in?
     @problem = Problem.new(user_id: current_user)
+    @problem.cases.build
   end
 
   # Create New Problem
@@ -29,6 +30,11 @@ class ProblemsController < ApplicationController
 
   private
   def problem_params
-    params.require(:problem).permit(:title, :description, :publish_status)
+    params.require(:problem).permit(
+      :title,
+      :description,
+      :publish_status,
+      :cases_attributes => [:input, :expected, :_destroy]
+    )
   end
 end

@@ -12,6 +12,27 @@ by <%= @problem.user.email %><br/>
   </div>
 </div>
 
+This problem has <%= @problem.cases.count %> test cases.
+
+<% if current_user == @problem.user %>
+
+  <h4> TestCases </h4>
+  This section is visible only you.
+
+  <% @problem.cases.each do |c| %>
+
+  <div class="input-group">
+    <span class="input-group-addon">Input</span>
+    <input type="text" class="form-control" placeholder="<%= c.input %>" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon">Expected</span>
+    <input type="text" class="form-control" placeholder="<%= c.expected %>" aria-describedby="basic-addon1">
+  </div><br />
+
+  <% end %>
+<% end %>
+
 <!-- Todo: Show ExampleTestCases -->
 
 Status: <%= @problem.publish_status %>

@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   require "coderay"
   class HTMLwithCoderay < Redcarpet::Render::HTML
     def block_code(code, language)
@@ -38,5 +37,23 @@ module ApplicationHelper
     }
     markdown = Redcarpet::Markdown.new(html_render, options)
     markdown.render(text)
+  end
+
+  def link_to_add_fields(name, f, association, params = {}, &block)
+    new_object = f.object.send(association).klass.new
+    id = new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: id) do |builder|
+      render(association.to_s.singularize + "_fields", f: builder)
+    end
+
+    clazz = "add_fields"
+    clazz += " " + params[:class] if params[:class]
+    options = {class: clazz, data: {id: id, fields: fields.gsub("\n", "")}}
+
+    if block
+      link_to('#', options, &block)
+    else
+      link_to(name, '#', options)
+    end
   end
 end

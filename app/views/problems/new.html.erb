@@ -19,6 +19,17 @@
         <%= f.select :publish_status, [["Closed", "closed"], ["Publish", "published"]] %>
       </div><br />
 
+      <div class="field">
+        <%= f.label :cases, "TestCases" %><br />
+        <%= f.fields_for :cases do |fc| %>
+          <%= render "case_fields", f: fc %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_fields "Add Test Case", f, :cases, class:"btn btn-success", role:"button" do %>
+        <i class="glyphicon glyphicon-plus-sign"></i> Add Test Case
+      <% end %>
+
       <div class="actions">
         <%= f.submit "Submit", class:"btn btn-primary", role:"button" %>
       </div>
