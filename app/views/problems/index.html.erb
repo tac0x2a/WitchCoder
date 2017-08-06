@@ -12,7 +12,7 @@
     <td><%= p.id %></td>
 
     <td><%= link_to p.title, {action:"show", controller:"problems", id: p.id} %></td>
-    <td><%= link_to p.user.email, {action:"show", controller:"users", id: p.user.id} %></td>
+    <td><%= link_to p.user.name, {action:"show", controller:"users", id: p.user.id} %></td>
     <td><%= p.updated_at %></td>
   </tr>
 
