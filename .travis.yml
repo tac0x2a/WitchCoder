@@ -9,8 +9,8 @@ services:
 cache: bundler
 
 before_script:
-  - rails db:create
-  - rails db:migrate
+  - bin/rails db:create
+  - bin/rails db:migrate
 
 script:
-  - rails test
+  - bin/rails test
