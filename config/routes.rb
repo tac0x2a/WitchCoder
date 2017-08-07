@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root 'static_pages#index'
+  root 'static_pages#index', as: 'static_pages_index'
 
   resources :users
   get '/users/:id', to:'users#show'
