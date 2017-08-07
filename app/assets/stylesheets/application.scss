@@ -4,6 +4,7 @@
 @import "bootstrap";
 
 @import "problems.scss";
+@import "static_pages.scss";
 
 body {
   padding-top: 70px;
@@ -22,4 +23,8 @@ body {
 
 .theme-showcase .navbar .container {
   width: auto;
+}
+
+img.logo {
+  width:30px;
 }
