@@ -6,12 +6,9 @@ rvm:
 services:
   - postgresql
 
-bundler_args: "--without development --deployment"
-
 cache: bundler
 
 before_script:
-#  - cp config/database.travis.yml config/database.yml
   - rails db:create
   - rails db:migrate
 
