@@ -12,8 +12,8 @@ cache: bundler
 
 before_script:
 #  - cp config/database.travis.yml config/database.yml
-  - bundle exec rake db:create
-  - bundle exec rake db:migrate
+  - rails db:create
+  - rails db:migrate
 
 script:
   - rails test
