@@ -1,9 +1,4 @@
-<h1>Challenge Problem#<%= @attempt.problem.id %> <%= @attempt.problem.title %></h1>
-Player: <%= @attempt.user.name %>
-Status: <%= @attempt.result %>
-AttemptedAt: <%= @attempt.attempted_at %>
-AttemptedCount: <%= @attempted_count %>
-AttemptID: <%= @attempt.id %>
+<h2>Challenge Problem#<%= @attempt.problem.id %> <%= @attempt.problem.title %></h2>
 
 <!-- Problem -->
 <div class="panel panel-default">
@@ -19,6 +14,13 @@ by <%= link_to @problem.user.name, @problem.user %>.
 
 This problem has <%= @problem.cases.count %> test cases.
 <br/>
+
+Player: <%= @attempt.user.name %>
+Status: <%= @attempt.result %>
+AttemptedAt: <%= @attempt.attempted_at %>
+AttemptedCount: <%= @attempted_count %>
+AttemptID: <%= @attempt.id %>
+
 
 <!-- Attempt -->
 <h1>Attempt</h1>
