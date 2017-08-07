@@ -59,16 +59,27 @@ class AttemptsController < ApplicationController
     end
 
     # Todo: Judge here.
+    # docker run tac0x2a/witchcoder-judge:v1 echo '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3" }' | ruby run.rb
+
+    # echo '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3", "expected":"5" }' | docker run tac0x2a/witchcoder-judge:v1 ruby run.rb
+
     @attempt.problem.cases.each do |caze|
       attempt_case = AttemptCase.new(attempt:@attempt, case:caze)
-      attempt_case.result = "PS"
-      attempt_case.exec_time = 42
+      input_json = {language: @attempt.language, code: @attempt.code, input: caze.input }.to_json
+
+      output_json = `docker run tac0x2a/witchcoder-judge:v1 ruby run.rb '#{input_json}'`
+      output = JSON.parse(output_json.strip)
+
+      attempt_case.actual    = output["output"].strip
+      attempt_case.exec_time = output["exec_time"]
       attempt_case.exec_mem  = 4423
-      attempt_case.actual    = "2"
+      attempt_case.result = caze.expected == attempt_case.actual ? "PS" : "FA"
       attempt_case.save
     end
 
-    @attempt.result = "PS"    # Todo
+    @attempt.result = "PS"
+    @attempt.result = "FA" if @attempt.attempt_cases.any?{|c| c.result == "FA"}
+
     @attempt.answer_time = 42 # Todo
 
     if not @attempt.save

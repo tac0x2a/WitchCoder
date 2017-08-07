@@ -1,0 +1,5 @@
+version: '3'
+services:
+  witchcoder-judge:
+    build: .
+    image: tac0x2a/witchcoder-judge:v1
