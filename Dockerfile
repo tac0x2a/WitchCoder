@@ -7,7 +7,7 @@ MAINTAINER TAC tac0x2a
 RUN apk update && apk add --update alpine-sdk sqlite sqlite-dev nodejs tzdata
 
 # Install docker
-# RUN apk update && apk add docker=1.11.2-r1 --no-cache
+RUN apk update && apk add docker=1.11.2-r1 openrc --no-cache
 
 # Application Volumes
 RUN mkdir -p /witchcoder
@@ -20,5 +20,11 @@ ADD Gemfile.lock /witchcoder/Gemfile.lock
 RUN bundle install
 ADD . /witchcoder
 
+# RUN service docker start
+# WORKDIR /witchcoder/judge_server
+# RUN service start docker
+# RUN sudo docker build -t "tac0x2a/witchcoder-judge:v1" .
+
 # Run Application
-ENTRYPOINT rails s
+# WORKDIR /witchcoder
+# ENTRYPOINT rails s
