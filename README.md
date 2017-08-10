@@ -6,7 +6,14 @@ WitchCoder is online judge platform.
 
 # How to RUN
 ```sh
+# build judge-server container
+$ cd judge_server
 $ docker-compose build
+
+$ cd ..
+$ docker-compose build
+$ docker-compose run web bin/rails db:create db:migrate db:seed
 $ docker-compose up -d
 ```
+
 Then, access `http://localhost:3000` .

@@ -4,7 +4,7 @@ FROM ruby:2.4.1-alpine3.4
 MAINTAINER TAC tac0x2a
 
 # Update
-RUN apk update && apk add --update alpine-sdk sqlite sqlite-dev nodejs tzdata
+RUN apk update && apk add --update alpine-sdk sqlite sqlite-dev nodejs tzdata postgresql-dev
 
 # Install docker
 RUN apk update && apk add docker=1.11.2-r1 openrc --no-cache
