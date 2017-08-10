@@ -58,10 +58,7 @@ class AttemptsController < ApplicationController
         notice:"Failed Challenge Problem by Internal Error."
     end
 
-    # Todo: Judge here.
-    # docker run tac0x2a/witchcoder-judge:v1 echo '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3" }' | ruby run.rb
-
-    # echo '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3", "expected":"5" }' | docker run tac0x2a/witchcoder-judge:v1 ruby run.rb
+    # docker run tac0x2a/witchcoder-judge:v1 ruby run.rb '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3", "expected":"5" }'
 
     @attempt.problem.cases.each do |caze|
       attempt_case = AttemptCase.new(attempt:@attempt, case:caze)
