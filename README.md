@@ -5,6 +5,16 @@
 WitchCoder is online judge platform.
 
 # How to RUN
+## Native
+```sh
+# for Mac OS X
+$ brew install postgresql
+$ bundle install
+$ rails db:create db:migrate db:seed
+$ rails s
+```
+
+## Docker
 ```sh
 # build judge-server container
 $ cd judge_server
