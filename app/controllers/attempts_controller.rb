@@ -58,13 +58,13 @@ class AttemptsController < ApplicationController
         notice:"Failed Challenge Problem by Internal Error."
     end
 
-    # docker run tac0x2a/witchcoder-judge:v1 ruby run.rb '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3", "expected":"5" }'
+    # docker run --rm tac0x2a/witchcoder-judge:v1 ruby run.rb '{ "language":"RB", "code":"puts gets.split(\" \").map{|i| i.to_i}.sum", "input":"2 3", "expected":"5" }'
 
     @attempt.problem.cases.each do |caze|
       attempt_case = AttemptCase.new(attempt:@attempt, case:caze)
       input_json = {language: @attempt.language, code: @attempt.code, input: caze.input }.to_json
 
-      output_json = `docker run tac0x2a/witchcoder-judge:v1 ruby run.rb '#{input_json}'`
+      output_json = `docker run --rm tac0x2a/witchcoder-judge:v1 ruby run.rb '#{input_json}'`
       output = JSON.parse(output_json.strip)
 
       attempt_case.actual    = output["output"].strip
